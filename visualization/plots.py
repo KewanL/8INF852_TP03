@@ -16,6 +16,7 @@ def plot_multiple_convergence(histories_dict):
     plt.xlabel("Itération")
     plt.ylabel("Fitness")
     plt.yscale("log")
+    plt.ylim(bottom=1e-10)
     plt.legend()
     plt.grid()
 
@@ -33,6 +34,7 @@ def plot_convergence(histories, name):
     plt.fill_between(range(len(median)), q1, q3, alpha=0.3)
     plt.title(name)
     plt.yscale("log")
+    plt.ylim(bottom=1e-10)
     plt.grid()
 
     os.makedirs(FIG_DIR, exist_ok=True)

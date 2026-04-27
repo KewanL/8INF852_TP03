@@ -4,13 +4,14 @@ from src.contraintes import penalisation_stat, degre_violation, Bornes_minimum, 
 
 
 # Fonction du pso 
-def pso(max_iter, lambda_penalite, swarm_size, w, c1, c2, espilon, max_stagnation): 
+def pso(max_iter, lambda_penalite, swarm_size, w, c1, c2, epsilon, max_stagnation): 
 
     # Initialisation de la population
     particules =[] # Liste des particules
-    velocites = [] # Liste des vitesses
+    velocities = [] # Liste des vitesses
     best_positions = [] # Liste des meilleures positions
     best_scores = [] # Liste des meilleurs scores
+    history = [] 
 
     for _ in range(swarm_size):
         x = np.array(generer_solution_aleatoire()) # Générer une solution aléatoire
@@ -19,7 +20,7 @@ def pso(max_iter, lambda_penalite, swarm_size, w, c1, c2, espilon, max_stagnatio
 
         # On stocke la particule, sa vitesse, sa meilleure position et son meilleur score
         particules.append(x)
-        velocites.append(v)
+        velocities.append(v)
         best_positions.append(x.copy())
         best_scores.append(fitness)
 
@@ -27,7 +28,8 @@ def pso(max_iter, lambda_penalite, swarm_size, w, c1, c2, espilon, max_stagnatio
     best_index = np.argmin(best_scores)
     global_best_position = best_positions[best_index].copy()
     global_best_score = best_scores[best_index]
-
+    nb_stagnation = 0 
+    
     for i in range(max_iter) : # à chaque itération, toutes les particules se déplacent
         old_best = global_best_score # Ancienne meilleure fitness
 
@@ -40,33 +42,33 @@ def pso(max_iter, lambda_penalite, swarm_size, w, c1, c2, espilon, max_stagnatio
             # Mise à jour vitesse
             velocities[j] = (
                 w * velocities[j] # C'est l'inertie de la particule
-                + c1 * r1 * (best_positions[j] - particles[j])
-                + c2 * r2 * (global_best_position - particles[j]) # attiré par son meilleur personnel et le meilleur global
+                + c1 * r1 * (best_positions[j] - particules[j])
+                + c2 * r2 * (global_best_position - particules[j]) # attiré par son meilleur personnel et le meilleur global
             ) # inertie + attraction personnelle + attraction globale
 
             # Mise à jour de la position
-            particles[j] = particles[j] + velocities[j]
+            particules[j] = particules[j] + velocities[j]
 
             # Gestion des bornes
-            particles[j] = np.clip(particles[j], Bornes_minimum, Bornes_maximum)
+            particules[j] = np.clip(particules[j], Bornes_minimum, Bornes_maximum)
 
             # Calcul de la nouvelle fitness
             fitness = penalisation_stat(
-                particles[j][0],
-                particles[j][1],
-                particles[j][2],
+                particules[j][0],
+                particules[j][1],
+                particules[j][2],
                 lambda_penalite
             )
 
             # Mise à jour meilleur personnel
             if fitness < best_scores[j]:
                 best_scores[j] = fitness
-                best_positions[j] = particles[j].copy()
+                best_positions[j] = particules[j].copy()
 
             # Mise à jour meilleur global
             if fitness < global_best_score:
                 global_best_score = fitness
-                global_best_position = particles[j].copy()
+                global_best_position = particules[j].copy()
 
         history.append(global_best_score)
 
@@ -99,7 +101,7 @@ def monte_carlo_pso(n_runs, max_iter, lambda_penalite, swarm_size, w, c1, c2, ep
     for run in range(n_runs):
         np.random.seed(run)
 
-        global_best_position, global_best_score, history, violation = PSO( max_iter, lambda_penalite, swarm_size, w, c1, c2, epsilon, max_stagnation )
+        global_best_position, global_best_score, history, violation = pso( max_iter, lambda_penalite, swarm_size, w, c1, c2, epsilon, max_stagnation )
 
         all_final_fitness.append(global_best_score)
         all_violations.append(violation)
