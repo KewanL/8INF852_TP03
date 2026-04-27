@@ -4,7 +4,7 @@ import numpy as np
 
 CSV_DIR = "results/csv"
 
-def save_stats(name, best, median, std, feasible_rate):
+def save_stats(name, best, median, std, feasible_rate, worst=None):
     os.makedirs(CSV_DIR, exist_ok=True)
     file_path = f"{CSV_DIR}/results.csv"
 
@@ -14,9 +14,9 @@ def save_stats(name, best, median, std, feasible_rate):
         writer = csv.writer(f)
 
         if not file_exists:
-            writer.writerow(["Algorithm", "Best", "Median", "Std", "FeasibleRate"])
+            writer.writerow(["Algorithm", "Best", "Median", "Std", "FeasibleRate", "Worst"])
 
-        writer.writerow([name, best, median, std, feasible_rate])
+        writer.writerow([name, best, median, std, feasible_rate, worst])
 
 
 def save_history(name, histories):

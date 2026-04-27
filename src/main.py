@@ -47,17 +47,19 @@ if __name__ == "__main__":
         histories_dict["PSO"] = histories_pso
 
         best = np.min(final_fitness_pso)
+        worst = np.max(final_fitness_pso) 
         median = np.median(final_fitness_pso)
         std = np.std(final_fitness_pso)
         feasible_rate = np.mean(violations_pso == 0)
 
         print("\n=== PSO ===")
         print("Best :", best)
+        print("Worst :", worst)
         print("Median :", median)
         print("Std :", std)
         print("Feasible rate :", feasible_rate)
 
-        save_stats("PSO", best, median, std, feasible_rate)
+        save_stats("PSO", best, median, std, feasible_rate, worst=worst)
         save_history("pso", histories_pso)
 
     if args.algo in ["de", "all"]:
@@ -67,17 +69,19 @@ if __name__ == "__main__":
         histories_dict["DE"] = histories_de
 
         best = np.min(final_fitness_de)
+        worst = np.max(final_fitness_de)
         median = np.median(final_fitness_de)
         std = np.std(final_fitness_de)
         feasible_rate = np.mean(violations_de == 0)
 
         print("\n=== DE ===")
         print("Best :", best)
+        print("Worst :", worst)
         print("Median :", median)
         print("Std :", std)
         print("Feasible rate :", feasible_rate)
 
-        save_stats("DE", best, median, std, feasible_rate)
+        save_stats("DE", best, median, std, feasible_rate, worst=worst)
         save_history("de", histories_de)
 
     if args.algo == "pso_compare_swarm":
@@ -89,14 +93,16 @@ if __name__ == "__main__":
             histories_dict[name] = histories
 
             best = np.min(final_fitness)
+            worst = np.max(final_fitness)
             median = np.median(final_fitness)
             std = np.std(final_fitness)
             feasible_rate = np.mean(violations == 0)
 
-            save_stats(name, best, median, std, feasible_rate)
+            save_stats(name, best, median, std, feasible_rate, worst=worst)
 
             print(f"\n=== {name} ===")
             print("Best :", best)
+            print("Worst :", worst)
             print("Median :", median)
             print("Std :", std)
             print("Feasible rate :", feasible_rate)
@@ -110,13 +116,15 @@ if __name__ == "__main__":
             histories_dict[name] = histories
 
             best = np.min(final_fitness)
+            worst = np.max(final_fitness)
             median = np.median(final_fitness)
             std = np.std(final_fitness)
             feasible_rate = np.mean(violations == 0)
 
-            save_stats(name, best, median, std, feasible_rate)
+            save_stats(name, best, median, std, feasible_rate, worst=worst)
             print(f"\n=== {name} ===")
             print("Best :", best)
+            print("Worst :", worst)
             print("Median :", median)
             print("Std :", std)
             print("Feasible rate :", feasible_rate)
@@ -130,13 +138,15 @@ if __name__ == "__main__":
             histories_dict[name] = histories
 
             best = np.min(final_fitness)
+            worst = np.max(final_fitness)
             median = np.median(final_fitness)
             std = np.std(final_fitness)
             feasible_rate = np.mean(violations == 0)
 
-            save_stats(name, best, median, std, feasible_rate)
+            save_stats(name, best, median, std, feasible_rate, worst=worst)
             print(f"\n=== {name} ===")
             print("Best :", best)
+            print("Worst :", worst)
             print("Median :", median)
             print("Std :", std)
             print("Feasible rate :", feasible_rate)
@@ -151,13 +161,15 @@ if __name__ == "__main__":
             histories_dict[name] = histories
 
             best = np.min(final_fitness)
+            worst = np.max(final_fitness)
             median = np.median(final_fitness)
             std = np.std(final_fitness)
             feasible_rate = np.mean(violations == 0)
 
-            save_stats(name, best, median, std, feasible_rate)
+            save_stats(name, best, median, std, feasible_rate, worst=worst)
             print(f"\n=== {name} ===")
             print("Best :", best)
+            print("Worst :", worst)
             print("Median :", median)
             print("Std :", std)
             print("Feasible rate :", feasible_rate)
@@ -171,13 +183,15 @@ if __name__ == "__main__":
             histories_dict[name] = histories
 
             best = np.min(final_fitness)
+            worst = np.max(final_fitness)
             median = np.median(final_fitness)
             std = np.std(final_fitness)
             feasible_rate = np.mean(violations == 0)
 
-            save_stats(name, best, median, std, feasible_rate)
+            save_stats(name, best, median, std, feasible_rate, worst=worst)
             print(f"\n=== {name} ===")
             print("Best :", best)
+            print("Worst :", worst)
             print("Median :", median)
             print("Std :", std)
             print("Feasible rate :", feasible_rate)

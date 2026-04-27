@@ -1,1 +1,41 @@
-# 8INF852 - TP1
+# 8INF852 - TP3 : Optimisation stochastique par population (PSO & DE)
+
+Ce projet implémente et compare deux métaheuristiques à population (Optimisation par Essaim Particulaire et Évolution Différentielle) pour l'optimisation du poids d'un ressort mécanique sous contraintes.
+
+## 1. Installation
+
+Le projet nécessite Python 3.11+. 
+Il est recommandé d'utiliser un environnement virtuel :
+
+```bash
+python -m venv venv
+source venv/bin/activate  # Sur Linux/Mac
+.\venv\Scripts\activate   # Sur Windows
+pip install numpy matplotlib
+```
+
+## 2. Lancement des expériences 
+
+L'interface en ligne de commande permet de lancer les tests paramétriques ou la comparaison finale.
+
+### Comparaison principale
+
+Pour exécuter la comparaison finale entre le meilleur PSO et le meilleur DE avec 50 simulations de Monte-Carlo :
+```bash
+python -m src.main --algo all --n_runs 50 --max_iter 1000 --swarm_size 50 --w 0.7 --pop_size 50 --F 0.5 --CR 1.0
+```
+
+### Études paramétriques individuelles
+Exemples pour explorer les paramètres :
+- PSO (Taille essaim) : bash``` python -m src.main --algo pso_compare_swarm ``` 
+- DE (Facteur F) : bash``` python -m src.main --algo de_compare_F ``` 
+
+
+## 3. Structure des résultats 
+
+- Les graphiques de convergence sont générés dans results/figures/.
+- Les données statistiques sont sauvegardées dans results/csv/results.csv.
+
+
+
+Auteur : Kewan LENSEN
